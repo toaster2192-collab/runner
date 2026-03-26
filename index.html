@@ -3,83 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lode Runner Game</title>
+    <title>Dungeon Digger</title>
     <style>
-        body { margin: 0; overflow: hidden; }
-        canvas { background: #000; display: block; margin: auto; }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        #game {
+            position: relative;
+            width: 640px;
+            height: 480px;
+            margin: 0 auto;
+            border: 2px solid #fff;
+        }
+        .sprite {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+        }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <h1>Dungeon Digger</h1>
+    <div id="game"></div>
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
+        const game = document.getElementById('game');
+        const player = document.createElement('div');
+        player.className = 'sprite';
+        player.style.backgroundImage = 'url(player.png)';
+        player.style.left = '100px';
+        player.style.top = '100px';
+        game.appendChild(player);
 
-        // Set up canvas size
-        canvas.width = 640;
-        canvas.height = 480;
-
-        // Game Variables
-        let player = { x: 1, y: 1, direction: 'down', sprite: 'path/to/playerSprite.png' };
-        let enemies = [];
-        const tileSize = 24;
-
-        // Level data (placeholders)
-        const level = generateLevel();
-
-        // Game Loop
-        function gameLoop() {
-            update();
-            render();
-            requestAnimationFrame(gameLoop);
-        }
-
-        // Level Generation
+        // Procedural Level Generation
         function generateLevel() {
-            // Random level generation logic goes here
-            return [
-                // Sample level data
-            ];
-        }
-
-        // Update Game State
-        function update() {
-            // Updates for player, enemies, and game state
-        }
-
-        // Render Game
-        function render() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Drawing player, enemies, and level
-        }
-
-        // Player Movement
-        window.addEventListener('keydown', function (e) {
-            switch (e.code) {
-                case 'ArrowUp':
-                    player.y -= tileSize;
-                    break;
-                case 'ArrowDown':
-                    player.y += tileSize;
-                    break;
-                case 'ArrowLeft':
-                    player.x -= tileSize;
-                    break;
-                case 'ArrowRight':
-                    player.x += tileSize;
-                    break;
-                case 'Space':
-                    dig();
-                    break;
+            // Generate a simple grid-based level
+            for (let x = 0; x < 640; x += 24) {
+                for (let y = 0; y < 480; y += 24) {
+                    const tile = document.createElement('div');
+                    tile.className = 'sprite';
+                    tile.style.width = '24px';
+                    tile.style.height = '24px';
+                    tile.style.backgroundImage = 'url(tile.png)';
+                    tile.style.left = x + 'px';
+                    tile.style.top = y + 'px';
+                    game.appendChild(tile);
+                }
             }
+        }
+
+        // Enemy AI Pathfinding
+        function enemyAI() {
+            // Basic AI for enemy movement
+            const enemy = document.createElement('div');
+            enemy.className = 'sprite';
+            enemy.style.backgroundImage = 'url(enemy.png)';
+            enemy.style.left = '300px';
+            enemy.style.top = '100px';
+            game.appendChild(enemy);
+            setInterval(() => {
+                // Example pathfinding logic (to be implemented)
+                enemy.style.left = (parseInt(enemy.style.left) + 1) + 'px';
+            }, 100);
+        }
+
+        // Digging Mechanics
+        function dig(x, y) {
+            // Example digging function
+            const diggedTile = document.elementFromPoint(x, y);
+            if (diggedTile) {
+                diggedTile.remove(); // Remove the tile at the clicked position
+            }
+        }
+
+        game.addEventListener('click', (event) => {
+            dig(event.clientX, event.clientY);
         });
 
-        function dig() {
-            // Digging logic goes here
+        // Item Collection
+        function collectItem(item) {
+            // Logic to collect items (to be implemented)
+            console.log('Item collected!');
         }
 
-        // Start Game Loop
-        gameLoop();
+        generateLevel();
+        enemyAI();
     </script>
 </body>
 </html>
