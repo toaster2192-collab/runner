@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lode Runner Game</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { background: #000; display: block; margin: auto; }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set up canvas size
+        canvas.width = 640;
+        canvas.height = 480;
+
+        // Game Variables
+        let player = { x: 1, y: 1, direction: 'down', sprite: 'path/to/playerSprite.png' };
+        let enemies = [];
+        const tileSize = 24;
+
+        // Level data (placeholders)
+        const level = generateLevel();
+
+        // Game Loop
+        function gameLoop() {
+            update();
+            render();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Level Generation
+        function generateLevel() {
+            // Random level generation logic goes here
+            return [
+                // Sample level data
+            ];
+        }
+
+        // Update Game State
+        function update() {
+            // Updates for player, enemies, and game state
+        }
+
+        // Render Game
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Drawing player, enemies, and level
+        }
+
+        // Player Movement
+        window.addEventListener('keydown', function (e) {
+            switch (e.code) {
+                case 'ArrowUp':
+                    player.y -= tileSize;
+                    break;
+                case 'ArrowDown':
+                    player.y += tileSize;
+                    break;
+                case 'ArrowLeft':
+                    player.x -= tileSize;
+                    break;
+                case 'ArrowRight':
+                    player.x += tileSize;
+                    break;
+                case 'Space':
+                    dig();
+                    break;
+            }
+        });
+
+        function dig() {
+            // Digging logic goes here
+        }
+
+        // Start Game Loop
+        gameLoop();
+    </script>
+</body>
+</html>
